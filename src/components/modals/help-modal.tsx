@@ -82,28 +82,21 @@ export function HelpModal({ open, onOpenChange }: HelpModalProps) {
                 <ul className="mt-2 list-disc space-y-2 pl-5 text-muted-foreground">
                   <li>
                     <span className="font-medium text-foreground">
-                      HTTPS Endpoints:
+                      Validate Tool:
                     </span>{' '}
-                    All server endpoints must be served over HTTPS for security.
-                    HTTP connections will be rejected.
+                    Your MCP server must have a validate tool that returns the server owner's phone number in the format: {'{country_code}{number}'} Example: 919876543210 for +91-9876543210
                   </li>
                   <li>
                     <span className="font-medium text-foreground">
-                      Production Environment:
+                      HTTPS Requirement:
                     </span>{' '}
-                    Before sharing your server, deploy it on a hosting platform
-                    like Vercel, Cloudflare, or any other public service to
-                    ensure it is accessible.
+                    All endpoints must be served over HTTPS for security. HTTP connections will be rejected.
                   </li>
                   <li>
                     <span className="font-medium text-foreground">
-                      `validate` Tool:
+                      Prepare for production:
                     </span>{' '}
-                    Your MCP server must implement a `validate` tool. This tool is
-                    used for authentication when connecting with a Bearer Token. It
-                    must accept the token and return the server owner's phone
-                    number in the format `(country_code)(number)`, e.g.,
-                    `919876543210`.
+                    Before sharing your server, deploy it on a hosting platform such as Vercel, Cloudflare, or any other service. Ensure that the server is publicly accessible so others can connect to it.
                   </li>
                 </ul>
               </div>
@@ -114,23 +107,45 @@ export function HelpModal({ open, onOpenChange }: HelpModalProps) {
                   Use the chat input to run commands. All commands start with{' '}
                   <code className="bg-muted px-1 py-0.5 rounded">/mcp</code>.
                 </p>
-                <ul className="mt-2 list-disc space-y-2 pl-5 text-muted-foreground">
-                  <li>
-                    <code className="bg-muted px-1 py-0.5 rounded">/mcp connect [url] [token]</code>: Connect with a Bearer Token.
-                  </li>
-                  <li>
-                     <code className="bg-muted px-1 py-0.5 rounded">/mcp connect oauth [url]</code>: Connect with OAuth.
-                  </li>
-                  <li>
-                    <code className="bg-muted px-1 py-0.5 rounded">/mcp list</code>: List all connected servers.
-                  </li>
-                   <li>
-                    <code className="bg-muted px-1 py-0.5 rounded">/mcp disconnect</code>: Disconnect from all servers.
-                  </li>
-                  <li>
-                    <code className="bg-muted px-1 py-0.5 rounded">/mcp set-diagnostic-level [level]</code>: Set diagnostic level (error, warn, info, debug).
-                  </li>
-                </ul>
+                <div className="space-y-4 mt-2 text-muted-foreground">
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp connect &lt;url&gt; &lt;bearer_token&gt;</code></p>
+                        <p className="pl-2 mt-1">Connect your MCP server with Puch AI. Your MCP server must have a validate tool that accepts the bearer token and returns the user's phone number in the format {'{country_code}{number}'} (e.g., 919876543210 for +91-9876543210). This validation is required for authentication. The validate tool must return the user's phone number when given the bearer token for authentication to succeed.</p>
+                        <p className="pl-2 mt-1">Example: <code className="bg-muted px-1 py-0.5 rounded">/mcp connect https://mcp.example.com/mcp abc123token</code></p>
+                    </div>
+                     <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp connect &lt;url&gt;</code></p>
+                        <p className="pl-2 mt-1">For servers supporting OAuth authentication. A browser window may open for consent and authentication.</p>
+                    </div>
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp use &lt;server_id&gt;</code></p>
+                        <p className="pl-2 mt-1">Connect to a hosted MCP server using its unique identifier. You can connect upto 5 MCP servers at a time.</p>
+                    </div>
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp remove &lt;server_id&gt;</code></p>
+                        <p className="pl-2 mt-1">Remove a hosted MCP server from your list of connected servers.</p>
+                    </div>
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp list</code></p>
+                        <p className="pl-2 mt-1">List all your MCP server configurations.</p>
+                    </div>
+                     <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp deactivate</code></p>
+                        <p className="pl-2 mt-1">Safely disconnect from all currently active MCP servers. This will remove access to all server-provided tools.</p>
+                    </div>
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp diagnostics-level (error|warn|info|debug)</code></p>
+                        <p className="pl-2 mt-1">Control the amount of diagnostic information you receive from MCP operations. Available levels: error, warn, info, debug.</p>
+                    </div>
+                     <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp disable &lt;server_id&gt;</code></p>
+                        <p className="pl-2 mt-1">Disable a specific MCP server. You will still be connected to the server but you won't be able to use its tools. This is mostly for debugging. You can re-enable the server later using the /mcp enable command.</p>
+                    </div>
+                     <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp enable &lt;server_id&gt;</code></p>
+                        <p className="pl-2 mt-1">Enable a specific MCP server. By default, the server you connected to will be enabled.</p>
+                    </div>
+                </div>
               </div>
             </div>
           </div>

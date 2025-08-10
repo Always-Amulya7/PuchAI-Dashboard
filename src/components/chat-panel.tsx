@@ -25,11 +25,15 @@ const initialState = {
 };
 
 const commands = [
-  { command: '/mcp connect', description: 'Connect with a Bearer Token.' },
-  { command: '/mcp connect oauth', description: 'Connect with OAuth.' },
-  { command: '/mcp list', description: 'List all connected servers.' },
-  { command: '/mcp disconnect', description: 'Disconnect from all servers.' },
-  { command: '/mcp set-diagnostic-level', description: 'Set diagnostic level.' },
+    { command: '/mcp connect <url> <token>', description: 'Connect with a Bearer Token.' },
+    { command: '/mcp connect oauth <url>', description: 'Connect with OAuth.' },
+    { command: '/mcp use <server_id>', description: 'Connect to a hosted MCP server.' },
+    { command: '/mcp remove <server_id>', description: 'Remove a hosted MCP server.' },
+    { command: '/mcp list', description: 'List all connected servers.' },
+    { command: '/mcp deactivate', description: 'Disconnect from all servers.' },
+    { command: '/mcp diagnostics-level <level>', description: 'Set diagnostic level (error|warn|info|debug).' },
+    { command: '/mcp disable <server_id>', description: 'Disable a specific MCP server.' },
+    { command: '/mcp enable <server_id>', description: 'Enable a specific MCP server.' },
 ];
 
 function SubmitButton() {
@@ -116,7 +120,8 @@ export function ChatPanel() {
   };
 
   const handleCommandSelect = (command: string) => {
-    setInputValue(`${command} `);
+    const commandName = command.split(' ')[0] + ' ' + command.split(' ')[1];
+    setInputValue(`${commandName} `);
     setPopoverOpen(false);
     inputRef.current?.focus();
   };
