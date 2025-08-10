@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Github } from 'lucide-react';
+import { Github, Server } from 'lucide-react';
 import { JiraIcon, DatadogIcon } from '@/components/icons';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
@@ -94,6 +94,19 @@ export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
                       <Button onClick={() => handleConnect('Datadog')}>
                         <DatadogIcon className="mr-2 h-4 w-4" /> Connect
                       </Button>
+                    </div>
+                    <div className="flex items-end gap-2">
+                        <div className="grid flex-1 gap-1.5">
+                            <Label htmlFor="mcp-url">MCP Server URL</Label>
+                            <Input id="mcp-url" type="url" placeholder="https://your-mcp-server.com" />
+                        </div>
+                        <div className="grid flex-1 gap-1.5">
+                            <Label htmlFor="mcp-token">Bearer Token</Label>
+                            <Input id="mcp-token" type="password" placeholder="Enter your server token" />
+                        </div>
+                        <Button onClick={() => handleConnect('MCP Server')}>
+                            <Server className="mr-2 h-4 w-4" /> Connect
+                        </Button>
                     </div>
                 </div>
               </div>
