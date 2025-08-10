@@ -75,6 +75,35 @@ export function HelpModal({ open, onOpenChange }: HelpModalProps) {
                 </CardContent>
               </Card>
 
+              <Card>
+                <CardHeader>
+                    <CardTitle>Quick Setup Guide</CardTitle>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                    <div className='flex items-start gap-4'>
+                        <div className='flex-shrink-0 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold'>1</div>
+                        <div>
+                            <h4 className='font-semibold'>Prepare Your MCP Server</h4>
+                            <p className='text-muted-foreground'>Ensure your MCP server is publicly accessible and serving over HTTPS.</p>
+                        </div>
+                    </div>
+                    <div className='flex items-start gap-4'>
+                        <div className='flex-shrink-0 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold'>2</div>
+                        <div>
+                            <h4 className='font-semibold'>Connect from Puch Chat</h4>
+                            <p className='text-muted-foreground'>Use the <code className='bg-muted px-1 py-0.5 rounded'>/mcp connect</code> command in any Puch conversation.</p>
+                        </div>
+                    </div>
+                    <div className='flex items-start gap-4'>
+                        <div className='flex-shrink-0 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold'>3</div>
+                        <div>
+                            <h4 className='font-semibold'>Verify Connection</h4>
+                            <p className='text-muted-foreground'>Puch will confirm successful connection and show available tools, or display error messages for troubleshooting.</p>
+                        </div>
+                    </div>
+                </CardContent>
+              </Card>
+
               <div>
                 <h3 className="font-semibold text-foreground">
                   MCP Server Requirements
@@ -82,9 +111,14 @@ export function HelpModal({ open, onOpenChange }: HelpModalProps) {
                 <ul className="mt-2 list-disc space-y-2 pl-5 text-muted-foreground">
                   <li>
                     <span className="font-medium text-foreground">
+                      Defines any number of tools.
+                    </span>
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">
                       Validate Tool:
                     </span>{' '}
-                    Your MCP server must have a validate tool that returns the server owner's phone number in the format: {'{country_code}{number}'} Example: 919876543210 for +91-9876543210
+                    Has a tool named validate that returns your own number in {'{country_code}{number}'} format. Example: 919876543210 for +91-9876543210.
                   </li>
                   <li>
                     <span className="font-medium text-foreground">
@@ -105,45 +139,48 @@ export function HelpModal({ open, onOpenChange }: HelpModalProps) {
                 <h3 className="font-semibold text-foreground">Available Commands</h3>
                 <p className="mt-2 text-muted-foreground">
                   Use the chat input to run commands. All commands start with{' '}
-                  <code className="bg-muted px-1 py-0.5 rounded">/mcp</code>.
+                  <code className="bg-muted px-1 py-0.5 rounded">/mcp</code>. You can have up to 5 configurations.
                 </p>
                 <div className="space-y-4 mt-2 text-muted-foreground">
                     <div>
                         <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp connect &lt;url&gt; &lt;bearer_token&gt;</code></p>
-                        <p className="pl-2 mt-1">Connect your MCP server with Puch AI. Your MCP server must have a validate tool that accepts the bearer token and returns the user's phone number in the format {'{country_code}{number}'} (e.g., 919876543210 for +91-9876543210). This validation is required for authentication. The validate tool must return the user's phone number when given the bearer token for authentication to succeed.</p>
-                        <p className="pl-2 mt-1">Example: <code className="bg-muted px-1 py-0.5 rounded">/mcp connect https://mcp.example.com/mcp abc123token</code></p>
+                        <p className="pl-2 mt-1">Connect to your MCP server.</p>
                     </div>
                      <div>
                         <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp connect &lt;url&gt;</code></p>
-                        <p className="pl-2 mt-1">For servers supporting OAuth authentication. A browser window may open for consent and authentication.</p>
+                        <p className="pl-2 mt-1">To connect to remote MCP Server via OAuth.</p>
                     </div>
                     <div>
                         <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp use &lt;server_id&gt;</code></p>
-                        <p className="pl-2 mt-1">Connect to a hosted MCP server using its unique identifier. You can connect upto 5 MCP servers at a time.</p>
-                    </div>
-                    <div>
-                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp remove &lt;server_id&gt;</code></p>
-                        <p className="pl-2 mt-1">Remove a hosted MCP server from your list of connected servers.</p>
+                        <p className="pl-2 mt-1">Add a shared MCP server by ID.</p>
                     </div>
                     <div>
                         <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp list</code></p>
                         <p className="pl-2 mt-1">List all your MCP server configurations.</p>
                     </div>
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp enable &lt;server_id&gt;</code></p>
+                        <p className="pl-2 mt-1">Enable a specific MCP server.</p>
+                    </div>
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp disable &lt;server_id&gt;</code></p>
+                        <p className="pl-2 mt-1">Disable a specific MCP server.</p>
+                    </div>
+                    <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp remove &lt;server_id&gt;</code></p>
+                        <p className="pl-2 mt-1">Delete a server configuration.</p>
+                    </div>
+                     <div>
+                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp activate</code></p>
+                        <p className="pl-2 mt-1">Activate all MCP servers.</p>
+                    </div>
                      <div>
                         <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp deactivate</code></p>
-                        <p className="pl-2 mt-1">Safely disconnect from all currently active MCP servers. This will remove access to all server-provided tools.</p>
+                        <p className="pl-2 mt-1">Deactivate all MCP servers.</p>
                     </div>
                     <div>
                         <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp diagnostics-level (error|warn|info|debug)</code></p>
-                        <p className="pl-2 mt-1">Control the amount of diagnostic information you receive from MCP operations. Available levels: error, warn, info, debug.</p>
-                    </div>
-                     <div>
-                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp disable &lt;server_id&gt;</code></p>
-                        <p className="pl-2 mt-1">Disable a specific MCP server. You will still be connected to the server but you won't be able to use its tools. This is mostly for debugging. You can re-enable the server later using the /mcp enable command.</p>
-                    </div>
-                     <div>
-                        <p><code className="bg-muted px-1 py-0.5 rounded font-semibold text-foreground">/mcp enable &lt;server_id&gt;</code></p>
-                        <p className="pl-2 mt-1">Enable a specific MCP server. By default, the server you connected to will be enabled.</p>
+                        <p className="pl-2 mt-1">Set the diagnostic level for MCP.</p>
                     </div>
                 </div>
               </div>

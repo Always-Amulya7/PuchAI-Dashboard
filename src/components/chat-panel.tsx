@@ -25,15 +25,16 @@ const initialState = {
 };
 
 const commands = [
-    { command: '/mcp connect <url> <token>', description: 'Connect with a Bearer Token.' },
-    { command: '/mcp connect oauth <url>', description: 'Connect with OAuth.' },
-    { command: '/mcp use <server_id>', description: 'Connect to a hosted MCP server.' },
-    { command: '/mcp remove <server_id>', description: 'Remove a hosted MCP server.' },
-    { command: '/mcp list', description: 'List all connected servers.' },
-    { command: '/mcp deactivate', description: 'Disconnect from all servers.' },
-    { command: '/mcp diagnostics-level <level>', description: 'Set diagnostic level (error|warn|info|debug).' },
-    { command: '/mcp disable <server_id>', description: 'Disable a specific MCP server.' },
+    { command: '/mcp connect <url> <bearer_token>', description: 'Connect to your MCP server.' },
+    { command: '/mcp connect <url>', description: 'Connect to remote MCP Server via OAuth.' },
+    { command: '/mcp use <server_id>', description: 'Add a shared MCP server by ID.' },
+    { command: '/mcp list', description: 'List all your MCP server configurations.' },
     { command: '/mcp enable <server_id>', description: 'Enable a specific MCP server.' },
+    { command: '/mcp disable <server_id>', description: 'Disable a specific MCP server.' },
+    { command: '/mcp remove <server_id>', description: 'Delete a server configuration.' },
+    { command: '/mcp activate', description: 'Activate all MCP servers.' },
+    { command: '/mcp deactivate', description: 'Deactivate all MCP servers.' },
+    { command: '/mcp diagnostics-level (error|warn|info|debug)', description: 'Set the diagnostic level for MCP.' },
 ];
 
 function SubmitButton() {
